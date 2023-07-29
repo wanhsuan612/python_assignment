@@ -1,0 +1,50 @@
+version: '3'
+services:
+  # app:
+  #   container_name: app
+  #   build: .
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     - API_KEY=${API_KEY}
+  #   networks:
+  #     - proj_network
+  #   command: python /opt/financial/main.py
+  app:
+    container_name: app
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    stdin_open: true
+    tty: true
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    networks:
+      - proj_network
+    volumes:
+      - .:/opt
+    working_dir: /opt
+    command: /bin/bash
+  database:
+    image: mariadb:10.10.5
+    container_name: database
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - proj_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  proj_network:
+    driver: bridge
