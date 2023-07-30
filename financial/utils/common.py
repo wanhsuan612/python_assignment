@@ -18,10 +18,12 @@ def pagination(page: int, limit: int, data: list):
         paginated_data (list): The items for the requested page.
     """
     count = len(data)
+    # If data is empty, return default
     if count == 0:
         return 0, 0, []
 
     total_pages = math.ceil(count / limit)
+    # Generate paginated data
     start_index = (page - 1) * limit
     end_index = min(start_index + limit, count)  # Avoid indexing beyond the list
     paginated_data = data[start_index:end_index]

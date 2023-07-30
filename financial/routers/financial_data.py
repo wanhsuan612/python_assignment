@@ -22,6 +22,7 @@ def financial(start_date: date = None, end_date: date = None, symbol: str = None
     err = ""
     data = []
     try:
+        # Validate start_date and end_date
         if start_date and end_date:
             if start_date > end_date:
                 raise InvalidDateZone(start=start_date, end=end_date)

@@ -16,15 +16,18 @@ def cal_average(data: list[FinancialData] = []):
                the average close price (rounded to two decimal places), and the average volume (rounded up).
 
     """
+    # If data empty, return default
     if not data:
         return 0, 0, 0
 
+    # Sum total_open_price, total_close_price, total_volume
     total_op, total_cp, total_v = 0, 0, 0
     for d in data:
         total_op += float(d.open_price)
         total_cp += float(d.close_price)
         total_v += int(d.volume)
 
+    # Average total_open_price, total_close_price, total_volume
     n = len(data)
     average_op = round(total_op / n, 2)
     average_cp = round(total_cp / n, 2)

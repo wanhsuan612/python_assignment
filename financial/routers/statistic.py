@@ -22,6 +22,7 @@ def average(start_date: date, end_date: date, symbol: str):
     err = ""
     data = []
     try:
+        # Validate start_date and end_date
         if start_date > end_date:
             raise InvalidDateZone(start=start_date, end=end_date)
         data = get_financial_data(start_date=start_date, end_date=end_date, symbol=symbol)

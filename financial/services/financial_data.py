@@ -51,6 +51,7 @@ def _filter_symbol(query: Query, value):
     """
     _query = query.filter(FinancialData.symbol == value)
     _d = _query.all()
+    # If no data, raise SymbolNotFound
     if len(_d) == 0:
         raise SymbolNotFound(symbol=value)
     return _query
@@ -71,6 +72,7 @@ def _filter_start_date(query: Query, value):
     """
     _query = query.filter(FinancialData.date >= value)
     _d = _query.all()
+    # If no data, get the available min and max date for searching, raise DateNotFound
     if len(_d) == 0:
         start, end = get_valid_dates(query=query)
         raise DateNotFound(start=start, end=end)
@@ -92,6 +94,7 @@ def _filter_end_date(query: Query, value):
     """
     _query = query.filter(FinancialData.date <= value)
     _d = _query.all()
+    # If no data, get the available min and max date for searching, raise DateNotFound
     if len(_d) == 0:
         start, end = get_valid_dates(query=query)
         raise DateNotFound(start=start, end=end)
