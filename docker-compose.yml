@@ -1,0 +1,45 @@
+version: '3'
+services:
+  app:
+    depends_on:
+      - database
+    container_name: app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    networks:
+      - proj_network
+    volumes:
+      - .:/opt
+    working_dir: /opt
+    entrypoint: "sh ./bin/financial/entrypoint.sh"
+  database:
+    image: mariadb:10.10.5
+    container_name: database
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_DATABASE}
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./bin/db/set-permissions.sh:/docker-entrypoint-initdb.d/set-permissions.sh
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - proj_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  proj_network:
+    driver: bridge
