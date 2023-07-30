@@ -1,5 +1,7 @@
 from datetime import date
+
 from fastapi import APIRouter
+
 from financial.services.financial_data import get_financial_data
 from financial.types.response import FinancialDataResponse
 from financial.utils.common import pagination

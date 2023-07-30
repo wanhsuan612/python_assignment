@@ -2,6 +2,7 @@ import math
 
 from financial.models.financial_data import FinancialData
 
+
 def cal_average(data: list[FinancialData] = []):
     """
     Calculate the average open price, close price, and volume from a list of financial data.

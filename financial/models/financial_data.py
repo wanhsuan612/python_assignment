@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Date, Integer, String
+
 from financial.config.database import Base
+
 
 class FinancialData(Base):
     """Represents financial data for a specific stock symbol.
