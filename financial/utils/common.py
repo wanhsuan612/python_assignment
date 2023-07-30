@@ -1,5 +1,6 @@
 import math
 
+
 def pagination(page: int, limit: int, data: list):
     count = len(data)
     if count == 0:

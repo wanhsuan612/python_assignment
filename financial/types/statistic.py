@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from datetime import date
+
+from pydantic import BaseModel
+
 
 class Statistic(BaseModel):
     start_date: date

@@ -1,9 +1,11 @@
 from functools import lru_cache
+
 from sqlalchemy.orm.query import Query
 
 from financial.config.database import SessionLocal
 from financial.models.financial_data import FinancialData
-from financial.utils.exceptions import SymbolNotFound, DateNotFound
+from financial.utils.exceptions import DateNotFound, SymbolNotFound
+
 
 @lru_cache()
 def get_financial_data(start_date=None, end_date=None, symbol=None):

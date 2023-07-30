@@ -2,6 +2,7 @@ import math
 
 from financial.models.financial_data import FinancialData
 
+
 def cal_average(data: list[FinancialData] = []):
     average_op = 0
     average_cp = 0

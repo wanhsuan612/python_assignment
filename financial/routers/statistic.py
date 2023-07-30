@@ -1,11 +1,12 @@
-from fastapi import APIRouter
 from datetime import date
 
+from fastapi import APIRouter
 
 from financial.services.financial_data import get_financial_data
 from financial.services.statistics import cal_average
 from financial.types.response import StatisticResponse
 from financial.utils.exceptions import InvalidDateZone
+
 
 router = APIRouter(prefix="/statistics", tags=["statistic"])
 
@@ -29,9 +30,7 @@ def average(start_date: date, end_date: date, symbol: str):
                 "symbol": symbol,
                 "average_daily_open_price": average_op,
                 "average_daily_close_price": average_cp,
-                "average_daily_volume": average_v
+                "average_daily_volume": average_v,
             },
-            "info": {
-                "error": err
-            }
+            "info": {"error": err},
         }

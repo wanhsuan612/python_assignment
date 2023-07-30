@@ -1,9 +1,10 @@
-from fastapi import APIRouter
 from datetime import date
 
+from fastapi import APIRouter
+
 from financial.services.financial_data import get_financial_data
-from financial.utils.common import pagination
 from financial.types.response import FinancialDataResponse
+from financial.utils.common import pagination
 from financial.utils.exceptions import InvalidDateZone
 
 
@@ -25,13 +26,6 @@ def financial(start_date: date = None, end_date: date = None, symbol: str = None
         count, total_pages, paginated_data = pagination(page, limit, data)
         return {
             "data": paginated_data,
-            "pagination": {
-                "count": count,
-                "page": page,
-                "limit": limit,
-                "pages": total_pages
-            },
-            "info": {
-                "error": err
-            }
+            "pagination": {"count": count, "page": page, "limit": limit, "pages": total_pages},
+            "info": {"error": err},
         }
