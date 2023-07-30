@@ -5,7 +5,7 @@ from financial.config.database import SessionLocal
 from financial.models.financial_data import FinancialData
 
 @lru_cache()
-def get(start_date=None, end_date=None, symbol=None):
+def get_financial_data(start_date=None, end_date=None, symbol=None):
     session = SessionLocal()
     _query = session.query(FinancialData)
     if symbol:

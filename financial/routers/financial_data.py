@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from financial.services.financial_data import get
+from financial.services.financial_data import get_financial_data
 from financial.utils.common import pagination
 from financial.types.response import FinancialDataResponse
 
@@ -13,9 +13,9 @@ def financial(start_date: str = None, end_date: str = None, symbol: str = None, 
     err_msg = ""
     data = []
     try:
-        data = get(start_date=start_date, end_date=end_date, symbol=symbol)
+        data = get_financial_data(start_date=start_date, end_date=end_date, symbol=symbol)
     except Exception as e:
-        err_msg = e
+        err_msg = str(e)
     finally:
         count, total_pages, paginated_data = pagination(page, limit, data)
         return {

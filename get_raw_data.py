@@ -1,16 +1,18 @@
 import os
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
 import mysql.connector
 import requests
 
 
+load_dotenv()
 STOCKS = ["IBM", "AAPL"]
-API_KEY = os.environ.get("API_KEY")
+API_KEY = os.getenv("API_KEY")
 db_conf = {
     "host": "database",
-    "username": os.environ.get("DB_USER"),
-    "password": os.environ.get("DB_PASSWORD"),
+    "username": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
     "database": "python_assignment",
 }
 db_conn = None
@@ -37,9 +39,9 @@ def get_records(stock: str):
                     {
                         "symbol": stock,
                         "date": _date.strftime("%Y-%m-%d"),
-                        "open_price": float(v.get("1. open", 0)),
-                        "close_price": float(v.get("4. close", 0)),
-                        "volume": int(v.get("5. volume", 0)),
+                        "open_price": v.get("1. open", "0.0000")[:-2],
+                        "close_price": v.get("4. close", "0.0000")[:-2],
+                        "volume": v.get("5. volume", "0"),
                     }
                 )
     return records
