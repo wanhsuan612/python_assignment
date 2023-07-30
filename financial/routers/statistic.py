@@ -13,6 +13,12 @@ router = APIRouter(prefix="/statistics", tags=["statistic"])
 
 @router.get("", response_model=StatisticResponse, response_model_exclude_none=False)
 def average(start_date: date, end_date: date, symbol: str):
+    """Calculate and retrieve average daily open price, close price, and volume for a given symbol and date range.
+
+    This endpoint provides the ability to fetch average daily open price, close price, and volume
+    for a specified stock symbol between a given start and end date. If the start_date is greater
+    than the end_date, it raises an InvalidDateZone error.
+    """
     err = ""
     data = []
     try:
