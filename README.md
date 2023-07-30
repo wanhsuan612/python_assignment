@@ -1,4 +1,6 @@
-# Project Description
+# Python Assignment
+
+### Project Description
 
 This project is designed to retrieve and manage financial data for specific stocks (IBM, Apple Inc.) using the [AlphaVantage](https://www.alphavantage.co/documentation/) API. It provides functionality to fetch the recent two weeks of financial data, process and store it in a local database, and offers API endpoints to retrieve records and perform statistical calculations on the stored data. The APIs are implemented using `FastAPI`, enabling a fast and robust interface.
 
@@ -57,6 +59,12 @@ This project is designed to retrieve and manage financial data for specific stoc
 - **Coding Style:** PEP8(Autoformated by isort, black), Google Style Docstring
 
 ## Running the Code in Local Environment
+
+### Docker environment
+```
+Docker          v24.0.2
+Docker Compose  v2.19.1
+```
 
 Follow these steps to set up and run the project in your local environment:
 
