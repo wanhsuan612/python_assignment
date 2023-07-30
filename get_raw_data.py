@@ -1,19 +1,18 @@
 import os
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
+import time
 
 import mysql.connector
 import requests
 
 
-load_dotenv()
 STOCKS = ["IBM", "AAPL"]
 API_KEY = os.getenv("API_KEY")
 db_conf = {
-    "host": "database",
+    "host": os.getenv("DB_HOST"),
     "username": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
-    "database": "python_assignment",
+    "database": os.getenv("DB_DATABASE"),
 }
 db_conn = None
 
@@ -84,7 +83,18 @@ def _connect():
     return db_conn
 
 
+def wait_for_db():
+    while True:
+        try:
+            _ = _connect()
+            return
+        except Exception:
+            print("Database not ready yet, waiting...")
+            time.sleep(1)
+
+
 if __name__ == "__main__":
+    wait_for_db()
     for s in STOCKS:
         # Get stock records within 2 weeks
         records = get_records(s)

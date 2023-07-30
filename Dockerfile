@@ -1,9 +1,7 @@
 FROM python:3.10-slim
 
-WORKDIR /opt
+COPY requirements.txt .
 
-COPY . /opt
-
-RUN pip install --no-cache-dir --upgrade -r /opt/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 EXPOSE 5000
