@@ -9,7 +9,7 @@ class FinancialData(Base):
     This class is used to model the financial data related to a specific stock symbol,
     including information like the opening price, closing price, and trading volume for a given date.
 
-    Attributes:
+    Args:
         id (Integer): The unique identifier for the financial data record. It serves as the primary key.
         symbol (String): The stock symbol, e.g., "AAPL" for Apple Inc.
         date (Date): The date for the financial data.
