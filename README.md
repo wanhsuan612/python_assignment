@@ -7,7 +7,6 @@ This project is designed to retrieve and manage financial data for specific stoc
 ```php
 .
 ├── Dockerfile            // Contains the Docker configuration for building the project's container.
-├── README-1.md
 ├── README.md             // This file contains all the information about the project.
 ├── bin
 │   ├── db
@@ -81,7 +80,7 @@ Follow these steps to set up and run the project in your local environment:
 
 4. **Access the FastAPI Documentation:**
 
-   Open your web browser and navigate to `http://localhost:5000/docs`.
+   Open your web browser and navigate to `http://localhost:5000/docs` or `http://localhost:5000/redoc`.
 
 ## How to managing the AlphaVantage API Key
 
