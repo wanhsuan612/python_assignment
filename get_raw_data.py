@@ -1,8 +1,8 @@
 import os
 from datetime import datetime, timedelta
 
-import requests
 import mysql.connector
+import requests
 
 
 STOCKS = ["IBM", "AAPL"]
@@ -11,9 +11,10 @@ db_conf = {
     "host": "database",
     "username": os.environ.get("DB_USER"),
     "password": os.environ.get("DB_PASSWORD"),
-    "database": "python_assignment"
+    "database": "python_assignment",
 }
 db_conn = None
+
 
 def get_records(stock: str):
     # Initial records
@@ -32,19 +33,21 @@ def get_records(stock: str):
             diff = curr - _date
             # Check if the date is within 2 weeks
             if diff <= timedelta(days=14):
-                records.append({
-                    "symbol": stock,
-                    "date": _date.strftime("%Y-%m-%d"),
-                    "open_price": float(v.get("1. open", 0)),
-                    "close_price": float(v.get("4. close", 0)),
-                    "volume": int(v.get("5. volume", 0))
-                })
+                records.append(
+                    {
+                        "symbol": stock,
+                        "date": _date.strftime("%Y-%m-%d"),
+                        "open_price": float(v.get("1. open", 0)),
+                        "close_price": float(v.get("4. close", 0)),
+                        "volume": int(v.get("5. volume", 0)),
+                    }
+                )
     return records
 
 
 def insert_db(data: list):
     # Get connection
-    conn = _connect() 
+    conn = _connect()
     # Check database connection
     if conn is None:
         raise Exception("Can not connect to database!")
