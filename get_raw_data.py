@@ -18,6 +18,15 @@ db_conn = None
 
 
 def get_records(stock: str):
+    """Retrieve stock records for a specific symbol within 2 weeks.
+
+    Args:
+        stock (str): The stock symbol to fetch records for.
+
+    Returns:
+        list: A list of stock records.
+    """
+
     # Initial records
     records = []
     # Get current date
@@ -47,6 +56,15 @@ def get_records(stock: str):
 
 
 def insert_db(data: list):
+    """Inserts the given stock data into the database.
+
+    Args:
+        data (list): A list of dictionaries containing the stock data.
+
+    Returns:
+        str: A message indicating the result of the insertion.
+    """
+
     # Get connection
     conn = _connect()
     # Check database connection
@@ -76,6 +94,12 @@ def insert_db(data: list):
 
 
 def _connect():
+    """Connects to the database using the global configuration.
+
+    Returns:
+        mysql.connector.connection_cext.CMySQLConnection: The database connection object.
+    """
+
     global db_conn
     # If no connection or connection is break, re-connect
     if db_conn is None or not db_conn.is_connected():
@@ -84,6 +108,8 @@ def _connect():
 
 
 def wait_for_db():
+    """Waits for the database to become ready and then returns."""
+
     while True:
         try:
             _ = _connect()

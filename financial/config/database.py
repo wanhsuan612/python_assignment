@@ -4,13 +4,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+
 # Retrieve database configuration from environment variables
 host = os.getenv("DB_HOST")
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 database = os.getenv("DB_DATABASE")
 
-# Create the database URL for SQLAlchemy 
+# Create the database URL for SQLAlchemy
 SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{user}:{password}@{host}/{database}"
 
 # Create the SQLAlchemy engine
