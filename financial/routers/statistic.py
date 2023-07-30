@@ -1,20 +1,26 @@
+import json
 from fastapi import APIRouter
+from datetime import date
 
 
 from financial.services.financial_data import get_financial_data
 from financial.services.statistics import cal_average
 from financial.types.response import StatisticResponse
+from financial.utils.exceptions import InvalidDateZone
 
 router = APIRouter(prefix="/statistics", tags=["statistic"])
 
 
-@router.get("/", response_model=StatisticResponse, response_model_exclude_none=False)
-def average(start_date: str, end_date: str, symbol: str):
-    err_msg = ""
+@router.get("", response_model=StatisticResponse, response_model_exclude_none=False)
+def average(start_date: date, end_date: date, symbol: str):
+    err = ""
+    data = []
     try:
+        if start_date > end_date:
+            raise InvalidDateZone(start=start_date, end=end_date)
         data = get_financial_data(start_date=start_date, end_date=end_date, symbol=symbol)
     except Exception as e:
-        err_msg = str(e)
+        err = str(e)
     finally:
         average_op, average_cp, average_v = cal_average(data)
         return {
@@ -27,6 +33,6 @@ def average(start_date: str, end_date: str, symbol: str):
                 "average_daily_volume": average_v
             },
             "info": {
-                "error": err_msg
+                "error": err
             }
         }

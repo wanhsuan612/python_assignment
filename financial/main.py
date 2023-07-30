@@ -8,8 +8,3 @@ load_dotenv()
 app = FastAPI()
 app.include_router(router)
 
-
-@app.get("/")
-def healthy_check():
-    return "I am alive"
-

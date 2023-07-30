@@ -1,21 +1,26 @@
 from fastapi import APIRouter
+from datetime import date
 
 from financial.services.financial_data import get_financial_data
 from financial.utils.common import pagination
 from financial.types.response import FinancialDataResponse
+from financial.utils.exceptions import InvalidDateZone
 
 
 router = APIRouter(prefix="/financial_data", tags=["financial_data"])
 
 
-@router.get("/", response_model=FinancialDataResponse, response_model_exclude_none=False)
-def financial(start_date: str = None, end_date: str = None, symbol: str = None, limit: int = 10, page: int = 1):
-    err_msg = ""
+@router.get("", response_model=FinancialDataResponse, response_model_exclude_none=False)
+def financial(start_date: date = None, end_date: date = None, symbol: str = None, limit: int = 10, page: int = 1):
+    err = ""
     data = []
     try:
+        if start_date and end_date:
+            if start_date > end_date:
+                raise InvalidDateZone(start=start_date, end=end_date)
         data = get_financial_data(start_date=start_date, end_date=end_date, symbol=symbol)
     except Exception as e:
-        err_msg = str(e)
+        err = str(e)
     finally:
         count, total_pages, paginated_data = pagination(page, limit, data)
         return {
@@ -27,6 +32,6 @@ def financial(start_date: str = None, end_date: str = None, symbol: str = None, 
                 "pages": total_pages
             },
             "info": {
-                "error": err_msg
+                "error": err
             }
         }
